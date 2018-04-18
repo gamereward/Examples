@@ -1,4 +1,4 @@
-
+//test
 var game;
 var tableSize = 25;
 public function newgame(bet,mines){
