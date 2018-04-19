@@ -1,6 +1,10 @@
 //test
-var game;
-var tableSize = 25;
+var game; //Game object
+var tableSize = 25; //5x5 table size
+
+/// start a newgame
+/// @param bet - bet amount
+/// @param mines - number of mines
 public function newgame(bet,mines){
   setSessionStore("mine");
   if(getBalance()>=bet){
@@ -24,6 +28,8 @@ public function newgame(bet,mines){
     }
 }
 
+/// open a tile
+/// @param pos - open position
 public function open(pos){
   setSessionStore("mine");
     game=JSON.parse(loadUserSessionData("gamedata"));
@@ -57,6 +63,7 @@ public function open(pos){
     }
 }
 
+/// request payout
 public function payout(){
   setSessionStore("mine");
   game=JSON.parse(loadUserSessionData("gamedata"));
@@ -76,6 +83,7 @@ public function payout(){
   
 }
 
+/// specify mines position on table
 function initTable() {
     while(game.minesIndex.length < game.mines){
         var index = Math.floor(Math.random() * tableSize);
@@ -83,10 +91,12 @@ function initTable() {
     }
 }
 
+/// calculate payout for current game
 function payoutCal(mines,diamonds){
         var house_edge = 0.01;
-        return (1 - house_edge) * nCr(25,diamonds) / nCr(25 - mines, diamonds);
+        return (1 - house_edge) * nCr(tableSize,diamonds) / nCr(tableSize - mines, diamonds);
 }
+
 
 function nCr(n,r){
         var result = Factorial(n) / Factorial(r) / Factorial(n - r);
