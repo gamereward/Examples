@@ -1,1 +1,1 @@
-# Examples show How to use GameReward O-API to develop a Mines Casino game.
+# Examples show how to use GameReward O-API to develop a client-server game.
