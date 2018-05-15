@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Grd;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -66,9 +67,9 @@ public class MinesBetController : MonoBehaviour {
         clearBet();
         betAmount = Int32.Parse(betAmountInput.text);
 		numberOfMine = Int32.Parse(noMineInput.text);
-        GrdManager.Instance.CallServerScript("mines", "newgame", new object[]{betAmount,numberOfMine},(error, data) => {
+        GrdManager.CallServerScript("mines", "newgame", new object[]{betAmount,numberOfMine},(error, data) => {
             if(error==0){
-                MinesResponse result = MiniJSON.Json.GetObject<MinesResponse>(data);
+                MinesResponse result = MiniJSON.Json.GetObject<MinesResponse>(data.Data);
 				if (result.error == 0)
 				{
 					gameTable.InitTable(result, MinesTileStatus.HIDDEN);
@@ -77,8 +78,8 @@ public class MinesBetController : MonoBehaviour {
 					currentGameId = result.gameid;
 					if (betAmount > 0)
 					{
-                        GrdManager.Instance.User.balance = GrdManager.Instance.User.balance - (decimal)result.bet;
-                        balancePanel.UpdateBalance((double)GrdManager.Instance.User.balance);
+                        GrdManager.User.balance = GrdManager.User.balance - (decimal)result.bet;
+                        balancePanel.UpdateBalance((double)GrdManager.User.balance);
 					}
 					OnStartPlay();
 				}
@@ -89,12 +90,12 @@ public class MinesBetController : MonoBehaviour {
     }
 
     public void Cashout(){
-        GrdManager.Instance.CallServerScript("mines","payout",null,(error, data) => {
-			MinesResponse result = MiniJSON.Json.GetObject<MinesResponse>(data);
+        GrdManager.CallServerScript("mines","payout",null,(error, data) => {
+            MinesResponse result = MiniJSON.Json.GetObject<MinesResponse>(data.Data);
 			if (result.error == 0)
 			{
-                GrdManager.Instance.User.balance = GrdManager.Instance.User.balance + (decimal)result.payout;
-				balancePanel.UpdateBalance((double)GrdManager.Instance.User.balance);
+                GrdManager.User.balance = GrdManager.User.balance + (decimal)result.payout;
+				balancePanel.UpdateBalance((double)GrdManager.User.balance);
 				OnEndPlay();
 				gameTable.ShowTable(result);
 			}
@@ -128,8 +129,8 @@ public class MinesBetController : MonoBehaviour {
 		openedGems++;
         currentProfit = result.payout;
 		onPlayPanel.SetPayOut(currentProfit);
-        GrdManager.Instance.User.balance = GrdManager.Instance.User.balance + (decimal)currentProfit;
-        balancePanel.UpdateBalance((double)GrdManager.Instance.User.balance);
+        GrdManager.User.balance = GrdManager.User.balance + (decimal)currentProfit;
+        balancePanel.UpdateBalance((double)GrdManager.User.balance);
 		OnEndPlay();
         gameTable.ShowTable(result);
 

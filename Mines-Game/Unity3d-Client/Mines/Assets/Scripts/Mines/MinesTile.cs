@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Grd;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,8 +23,8 @@ public class MinesTile : MonoBehaviour {
 
     public void OnClick(){
         if (status != MinesTileStatus.HIDDEN) return;
-        GrdManager.Instance.CallServerScript("mines","open",new object[]{pos},(error, data) => {
-            MinesResponse result = MiniJSON.Json.GetObject<MinesResponse>(data);
+        GrdManager.CallServerScript("mines","open",new object[]{pos},(error, data) => {
+            MinesResponse result = MiniJSON.Json.GetObject<MinesResponse>(data.Data);
 			if (result.win == -1)
 			{
 				image.enabled = true;

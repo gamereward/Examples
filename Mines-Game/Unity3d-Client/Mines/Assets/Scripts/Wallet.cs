@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Grd;
 using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
@@ -14,8 +15,8 @@ public class Wallet : MonoBehaviour {
     public Text message;
 	// Use this for initialization
 	void Start () {
-        address.text = GrdManager.Instance.User.address;
-		Texture2D barcode = generateQR("gamereward:" + GrdManager.Instance.User.address);
+        address.text = GrdManager.User.address;
+		Texture2D barcode = generateQR("gamereward:" + GrdManager.User.address);
 		qrImage.sprite = Sprite.Create(barcode, new Rect(0, 0, barcode.width, barcode.height), new Vector2(0, 0), 1);
 
 	}
@@ -51,7 +52,7 @@ public class Wallet : MonoBehaviour {
     public void Withdraw(){
         if(addressInput.text!=null&& addressInput.text.StartsWith("0x", System.StringComparison.Ordinal)&&amount.text!=null&&decimal.Parse(amount.text)>0)
         {
-            GrdManager.Instance.Transfer(addressInput.text,decimal.Parse(amount.text),"",(error, data) => {
+            GrdManager.Transfer(addressInput.text,decimal.Parse(amount.text),"",(error, data) => {
                 if(error==0){
                     message.text = "Success!";
                 }else{

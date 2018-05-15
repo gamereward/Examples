@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Grd;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class BalancePanel : MonoBehaviour
 
     private void Update()
     {
-        UpdateBalance((double)GrdManager.Instance.User.balance);
+        UpdateBalance((double)GrdManager.User.balance);
     }
 
     public void UpdateBalance(double b){
