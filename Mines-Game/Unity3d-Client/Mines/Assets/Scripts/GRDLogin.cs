@@ -16,6 +16,7 @@ public class GRDLogin : MonoBehaviour
 	public GameObject buttonLogin;
 	public GameObject buttonRegister;
 	public Text registerLink;
+    public Text message;
 	public bool isInLogin;
 
 	private void Start()
@@ -28,6 +29,7 @@ public class GRDLogin : MonoBehaviour
 
 	public void SwitchScreen()
 	{
+        message.text = "";
 		if (isInLogin)
 		{
 			isInLogin = false;
@@ -56,7 +58,7 @@ public class GRDLogin : MonoBehaviour
             }
 			else
 			{
-                Debug.Log(args.ToString());
+                message.text = args.ErrorMessage;
 			}
         });
 	}
@@ -69,7 +71,7 @@ public class GRDLogin : MonoBehaviour
             if(error==0){
                 SwitchScreen();
             }else{
-                Debug.Log(args.ToString());
+                message.text = args.ErrorMessage;
             }
         });
 		

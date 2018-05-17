@@ -16,7 +16,7 @@ namespace Grd
             }
             handler.Init(appId, secret, apiUrl);
         }
-        private const string apiUrl = "https://gamereward.io/appapi/";
+        private const string apiUrl = "https://test.gamereward.io/appapi/";
         private static GrdHandler handler;
         /// <summary>
         /// User information
