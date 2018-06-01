@@ -6,9 +6,9 @@ namespace Grd
     internal class GrdHandler : MonoBehaviour
     {
 
-        private string apiUrl = "https://gamereward.io/appapi/";
-        private string apiId = "cc8b8744dbb1353393aac31d371af9a55a67df16";
-        private string apiSecret = "1679091c5a880faf6fb5e6087eb1b2dc4daa3db355ef2b0e64b472968cb70f0df4be00279ee2e0a53eafdaa94a151e2ccbe3eb2dad4e422a7cba7b261d923784";
+        private string apiUrl = "https://test.gamereward.io/appapi/";
+        private string apiId = "YOUR_API_ID";
+        private string apiSecret = "YOUR_API_SECRET";
         private string token = "";
         public void Init(string appid, string appsecret, string appurl)
         {
